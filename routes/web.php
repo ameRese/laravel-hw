@@ -10,6 +10,8 @@ Route::get('/', function () {
 
 Route::get('post/create', [PostController::class, 'create']);
 
+Route::get('post', [PostController::class, 'index']);
+
 Route::post('post', [PostController::class, 'store'])->name('post.store');
 
 Route::get('/dashboard', function () {
