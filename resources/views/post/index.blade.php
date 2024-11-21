@@ -10,6 +10,7 @@
                 {{ session('message') }}
             </div>
         @endif --}}
+        <x-error :error="session('error')" />
         <x-message :message="session('message')" />
         @foreach ($posts as $post)
             <div class="mt-4 p-8 bg-white w-full rounded-2xl">
