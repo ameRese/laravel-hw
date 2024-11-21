@@ -23,15 +23,26 @@
                                 編集
                             </x-primary-button>
                         </a>
-
-                        <form method="post" action="{{ route('post.destroy', $post) }}"
-                            class="flex-2">
-                                @csrf
-                                @method('delete')
-                                <x-primary-button class="bg-red-700 ml-2">
-                                    削除
+                        <x-primary-button id="js-delete-button" class="bg-red-700 ml-2 flex-2">
+                            削除
+                        </x-primary-button>
+                    </div>
+                    <div id="js-delete-modal" class="hidden top-60 left-1/2 -translate-x-1/2 bg-white rounded-2xl fixed z-10">
+                        <div class="p-4">
+                            <p class="pb-4">本当に削除してよろしいですか？</p>
+                            <div class="text-right flex">
+                                <form method="post" action="{{ route('post.destroy', $post) }}" class="flex-1">
+                                    @csrf
+                                    @method('delete')
+                                    <x-primary-button class="bg-red-700 ml-2">
+                                        はい
+                                    </x-primary-button>
+                                </form>
+                                <x-primary-button id="js-cancel-button" class="ml-2">
+                                    キャンセル
                                 </x-primary-button>
-                        </form>
+                            </div>
+                        </div>
                     </div>
                 @endif
                 <hr class="w-full">
@@ -44,4 +55,8 @@
             </div>
         </div>
     </div>
+
+    <div id="js-overlay" class="hidden top-0 left-0 w-full h-full bg-black/60 fixed z-9"></div>
+
+    <script src="{{ asset('js/modal.js') }}"></script>
 </x-app-layout>
