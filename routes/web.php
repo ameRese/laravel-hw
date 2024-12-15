@@ -8,12 +8,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('post', PostController::class);
+// メール認証を完了させたログインユーザーのみアクセス可能に
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('post', PostController::class);
+});
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/dashboard', [PostController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+// メール認証を完了させたログインユーザーのみアクセス可能に
+Route::get('/dashboard', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
